@@ -5,8 +5,11 @@ const message = [
   "Apply for jobs",
   "Invest your new income",
 ];
+
 export default function App(){
-  let [step, setStep] = useState(1);
+  const [step, setStep] = useState(1);
+  const[isOpen, setIsOpen] = useState(true);
+  // const [test, setTest] = useState({name: "Jonas"});
 
 
   function handlePrevious() {
@@ -14,12 +17,18 @@ export default function App(){
   }
 
   function handleNext() {
-    setStep(step + 1);
+    if (step < 3) setStep(step + 1);
+    // setTest({name: "Fred"});
   }
 
 
   return(
-    <div className="steps">
+    <>
+    <button className="close" onClick={() => setIsOpen(!isOpen)}>
+      &times;
+    </button>
+    {isOpen && (
+      <div className="steps">
       <div className="numbers">
         <div className={step >= 1 ? "active" : ""}>1</div>
         <div className={step >= 2 ? "active" : ""}>2</div>
@@ -37,9 +46,11 @@ export default function App(){
           Previous
         </button>
         <button style={{backgroundColor: "#7950f2", color: "#fff"}}
-        onClick={()=> alert("Next")}
+        onClick={handleNext}
         >Next</button>
       </div>
     </div>
-  )
+  )}  
+  </>
+)
 }
